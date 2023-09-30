@@ -1,6 +1,7 @@
 package calendar_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/TypicalAM/hackyeah/calendar"
@@ -16,25 +17,27 @@ func TestConvert(t *testing.T) {
 			Drugs: []routes.ConfirmInputDrug{
 				{
 					Drug: prescription.Drug{
-						Name:         "Nazwa",
+						Name:         "Mefedron",
 						DaysInterval: 1,
-						DosesPerDay:  1,
+						DosesPerDay:  2,
 						TotalDoses:   10,
 					},
 
 					StartDate: "2023-09-30",
 					Hours: []string{
-						"12:40",
+						"12:00", "21:37",
 					},
 				},
 			},
 		}
 
 		// We test using our eyes
-		t.Logf("%#v", input)
+		marszalek, _ := json.MarshalIndent(input, "", "  ")
+		t.Logf("%s", marszalek)
 
 		output, _ := calendar.Convert(input)
 
-		t.Logf("%#v", output)
+		pilsudski, _ := json.MarshalIndent(output, "", "  ")
+		t.Logf("%s", pilsudski)
 	})
 }
