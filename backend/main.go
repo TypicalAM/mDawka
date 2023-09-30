@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"log"
 
 	"github.com/TypicalAM/hackyeah/config"
@@ -34,5 +35,5 @@ func main() {
 
 	e.StaticFS("/assets", echo.MustSubFS(static, "assets"))
 	e.FileFS("/favicon.ico", "assets/favicon.ico", static)
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", cfg.Port)))
 }
