@@ -9,7 +9,8 @@ func main() {
 	c := routes.New()
 	e := echo.New()
 	e.GET("/", c.Hello)
+	e.File("/2137", "assets/rzulta.jpg")
 	e.Logger.Fatal(e.Start(":8080"))
 
-	panic("na dobry początek")
+	panic("na dobry początek 2345")
 }
