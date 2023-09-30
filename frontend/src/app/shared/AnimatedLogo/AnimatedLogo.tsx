@@ -1,12 +1,11 @@
 import React from 'react'
-import { Wrapper } from '@/app/shared/AnimatedLogo.styles'
-
+import style from './AnimatedLogo.module.css'
 export default function AnimatedLogo (): React.ReactElement {
     return (
-        <Wrapper>
+        <div className={style.animation}>
             <p>m</p>
             <p>oja</p>
             <p>Dawka</p>
-        </Wrapper>
+        </div>
     )
 }
