@@ -40,12 +40,15 @@ export default function Home(props: any): React.ReactElement {
     function buttonHandler() {
         fetch("http://localhost:8080/api/pesel_code", {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 pesel: pesel,
                 code: pin
             })
         }).then((response) => {
-            console.log(response)
+            localStorage.setItem("data", (response.body || "").toString() )
         })
     }
 }
