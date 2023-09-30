@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
-import BarcodeReader from './BarcodeReader'
+import BarcodeReader from '../components/BarcodeReader/BarcodeReader'
 import { Overlay, Wrapper } from './BarcodeReader.styles'
-import Loader from './Loader'
+import Loader from '../components/Loader/Loader'
 import { useRouter } from 'next/navigation'
 import Calendar from './Calendar'
 

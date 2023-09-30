@@ -1,7 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import myGif from '../../../public/pill.gif'
-import { Loader, Wrapper } from './BarcodeReader.styles'
+import { Wrapper } from '@/app/scan/scan.styles'
+import { Loader } from './Loader.styles'
+
 export default function LoaderComponent() {
     return (
         <Loader>

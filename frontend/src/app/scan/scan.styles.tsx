@@ -53,12 +53,3 @@ export const Overlay = styled.div`
     -moz-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
     box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
 `
-
-export const Loader = styled.div`
-    z-index: 9;
-
-    ${Wrapper} {
-        height: 100vh;
-        background-color: white;
-    }
-`

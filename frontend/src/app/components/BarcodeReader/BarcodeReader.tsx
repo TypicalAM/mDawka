@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 // eslint-disable-next-line
 // @ts-ignore
 import Quagga from 'quagga'
-import { BarcodeFormat, type CodeResult } from '../../../types/BarcodeTypes'
+import { BarcodeFormat, type CodeResult } from '../../../../types/BarcodeTypes'
 
 interface Props {
     isLoading: Function
