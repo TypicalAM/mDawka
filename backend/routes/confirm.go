@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/TypicalAM/hackyeah/calendar"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -32,6 +33,10 @@ func (c *Controller) Confirm(e echo.Context) error {
 
 	if count == 0 {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "uuid not found"})
+	}
+
+	if _, err := calendar.Convert(ci); err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": err.Error()})
 	}
 
 	log.Printf("%+v\n", ci.Drugs)
