@@ -8,21 +8,11 @@ import (
 	"time"
 
 	"github.com/TypicalAM/hackyeah/routes"
+	"github.com/jagtym/go-simple-ics-serializer/pkg/serializer"
 )
 
-type Event struct {
-	UUID        string
-	Title       string
-	Description string
-	DateStart   time.Time
-	DateEnd     time.Time
-}
-type Calendar struct {
-	Events []Event
-}
-
-func Convert(input routes.ConfirmInput) (*Calendar, error) {
-	var events []Event
+func Convert(input routes.ConfirmInput) (*serializer.Calendar, error) {
+	var events []serializer.Event
 
 	for _, drug := range input.Drugs {
 		// Validate the input
@@ -67,7 +57,7 @@ func Convert(input routes.ConfirmInput) (*Calendar, error) {
 				)
 
 				// Create a calendar Event
-				events = append(events, Event{
+				events = append(events, serializer.Event{
 					UUID:        hash(doseDate, drug.Drug.Name),
 					Title:       fmt.Sprintf("%s - dawka #%d/%d", drug.Drug.Name, doseNumber, drug.Drug.TotalDoses),
 					Description: "Smacznego!",
@@ -85,7 +75,7 @@ func Convert(input routes.ConfirmInput) (*Calendar, error) {
 
 	}
 
-	return &Calendar{
+	return &serializer.Calendar{
 		Events: events,
 	}, nil
 }
