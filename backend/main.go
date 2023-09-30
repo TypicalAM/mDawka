@@ -26,7 +26,11 @@ func main() {
 	}
 	log.Println("Controller loaded")
 
-	e.GET("/", controller.Hello)
+	api := e.Group("/api")
+	api.POST("/pesel_code", controller.Pesel)
+	api.POST("/barcode", controller.Barcode)
+	api.POST("/confirm/:uuid", controller.Confirm)
+
 	e.StaticFS("/assets", echo.MustSubFS(static, "assets"))
 	e.FileFS("/favicon.ico", "assets/favicon.ico", static)
 	e.Logger.Fatal(e.Start(":8080"))
