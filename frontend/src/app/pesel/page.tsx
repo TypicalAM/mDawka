@@ -3,10 +3,12 @@ import React from 'react'
 import AnimatedLogo from '@/app/components/AnimatedLogo/AnimatedLogo'
 import Input from "@/app/components/Input/Input";
 import "./pesel.css"
+import {useRouter} from "next/navigation";
 
 export default function Home(props: any): React.ReactElement {
     const [pesel, setPesel] = React.useState("")
     const [pin, setPin] = React.useState("")
+    const router = useRouter()
     function buttonDisableCheck(): boolean {
         return !(pesel.length === 11 && pin.length === 4)
     }
@@ -37,19 +39,26 @@ export default function Home(props: any): React.ReactElement {
         </>
     )
 
-    function buttonHandler() {
-        fetch("http://localhost:8080/api/pesel_code", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                pesel: pesel,
-                code: pin
+    async function buttonHandler() {
+        try {
+            const response: any = await fetch("http://localhost:8080/api/pesel_code", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    pesel: pesel,
+                    code: pin
+                })
             })
-        }).then((response) => {
-            localStorage.setItem("data", (response.body || "").toString() )
-        })
+            const result = await response.json();
+            console.log(result)
+            localStorage.setItem("data", JSON.stringify(result))
+            router.replace("/accept")
+        } catch (e) {
+            throw e
+        }
+
     }
 }
 

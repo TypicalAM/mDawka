@@ -14,6 +14,8 @@ import AnimatedLogo from '../AnimatedLogo/AnimatedLogo'
 import { Loader } from '../Loader/Loader.styles'
 
 export default function CalendarComponent() {
+    const data = JSON.parse(localStorage.getItem('data') || '{}')
+    const [index, setIndex] = React.useState(0)
     return (
         <>
             <Suspense fallback={<Loader />}>
@@ -21,7 +23,7 @@ export default function CalendarComponent() {
                     <Wrapper>
                         <AnimatedLogo></AnimatedLogo>
                         <InputWrapper>
-                            <Input placeholder="Nazwa Leku" disabled />
+                            <Input placeholder="Nazwa Leku" disabled value={data.drugs[0].drug_name} />
                         </InputWrapper>
                         <Text
                             style={{
@@ -35,15 +37,15 @@ export default function CalendarComponent() {
                         </Text>
                         <Calendar locale="pl" />
                         <InputGroup>
-                            <Text>Dawki tygodniowo</Text>
+                            <Text>Co ile dni</Text>
                             <InputSmall>
-                                <Input disabled />
+                                <Input disabled value={data.drugs[0].days_interval}/>
                             </InputSmall>
                         </InputGroup>
                         <InputGroup>
                             <Text>Ilość dawek</Text>
                             <InputSmall>
-                                <Input disabled />
+                                <Input disabled value={data.drugs[0].doses_per_day}/>
                             </InputSmall>
                         </InputGroup>
                         <Text
@@ -59,7 +61,7 @@ export default function CalendarComponent() {
                         <InputGroup>
                             {['12:00', '13:00', '15:00'].map((item) => (
                                 <InputHour>
-                                    <Input></Input>
+                                    <Input type="time"></Input>
                                 </InputHour>
                             ))}
                         </InputGroup>
