@@ -4,6 +4,7 @@ const overlayColor = 'rgba(66, 68, 90, 0.5)'
 const widthAndHeight = '100vh'
 
 export const Wrapper = styled.div`
+    isolation: isolate;
 
   position: absolute;
 
@@ -36,9 +37,20 @@ export const Overlay = styled.div`
     width: 350px;
     background-color: transparent;
     margin: auto;
-    z-index: 999;
+    z-index: 2;
     border-radius: 15px;
-    -webkit-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
-    -moz-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
-    box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
-`
+
+    -webkit-box-shadow: 0px 0px ${widthAndHight} ${widthAndHight} ${overlayColor};
+    -moz-box-shadow: 0px 0px ${widthAndHight} ${widthAndHight} ${overlayColor};
+    box-shadow: 0px 0px ${widthAndHight} ${widthAndHight} ${overlayColor};
+`;
+
+export const Loader = styled.div`
+    z-index: 9;
+
+    ${Wrapper}{
+        background-color: white;
+    }
+
+`;
+
