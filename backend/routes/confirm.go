@@ -45,6 +45,8 @@ func (c *Controller) Confirm(e echo.Context) error {
 	}
 	log.Println(res.InsertedID)
 
+	// todo: validate payload with calendar.convert
+
 	_, err = c.db.Collection("unconfirmed").DeleteOne(e.Request().Context(), bson.M{"uuid": uuidRaw})
 	if err != nil {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "failed to delete unconfirmed"})
