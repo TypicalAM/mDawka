@@ -7,13 +7,12 @@ services:
       - 27017:27017
     volumes:
       - mongo_data_dev:/data/db
-      
 
-        # frontend:
-        #build:
-        #context: frontend
-        #ports:
-        #- 3000:3000
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - 3000:3000
         #volumes:
         #- ./frontend:/app
 
@@ -31,8 +30,8 @@ services:
     volumes:
       - ./backend:/app
     depends_on:
-      - db
-        #- frontend
+      - db 
+      - frontend
 
 volumes:
   mongo_data_dev:

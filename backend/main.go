@@ -8,6 +8,7 @@ import (
 	"github.com/TypicalAM/hackyeah/config"
 	"github.com/TypicalAM/hackyeah/routes"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 //go:embed assets/*
@@ -15,6 +16,8 @@ var static embed.FS
 
 func main() {
 	e := echo.New()
+	e.Use(middleware.CORS())
+
 	cfg, err := config.New()
 	if err != nil {
 		log.Fatal(err)

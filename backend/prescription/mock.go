@@ -1,8 +1,8 @@
 package prescription
 
 import (
-	"fmt"
 	"log"
+	"math/rand"
 )
 
 type MockAPI struct{}
@@ -22,13 +22,25 @@ func (api MockAPI) GetDrugsForPesel(pesel string, code string) (*[]Drug, error) 
 }
 
 func generateDrugs() *[]Drug {
+	drugsNumber := rand.Intn(3) + 2
+	drugNames := []string{
+		"Amoksycylina 500mg",
+		"Gripex 200mg",
+		"Ibum 400mg",
+		"Omeprazol 20mg",
+		"Loratadyna 10mg",
+		"Ciprofloksacyna 500mg",
+	}
+
+	rand.Shuffle(len(drugNames), func(i, j int) { drugNames[i], drugNames[j] = drugNames[j], drugNames[i] })
+
 	var drugs []Drug
-	for i := 0; i < 5; i++ {
+	for i := 0; i < drugsNumber; i++ {
 		drug := Drug{
-			Name:         fmt.Sprintf("Lek #%d", i),
+			Name:         drugNames[i],
 			DaysInterval: 1,
-			DosesPerDay:  1,
-			TotalDoses:   10,
+			DosesPerDay:  rand.Intn(3) + 1,
+			TotalDoses:   rand.Intn(15) + 1,
 		}
 
 		drugs = append(drugs, drug)

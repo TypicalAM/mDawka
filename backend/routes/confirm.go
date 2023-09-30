@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/TypicalAM/hackyeah/calendar"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
@@ -34,6 +35,10 @@ func (c *Controller) Confirm(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "uuid not found"})
 	}
 
+	if _, err := calendar.Convert(ci); err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": err.Error()})
+	}
+
 	log.Printf("%+v\n", ci.Drugs)
 	res, err := c.db.Collection("drugs").InsertOne(e.Request().Context(), bson.M{
 		"_id":   uuidRaw,
@@ -44,6 +49,8 @@ func (c *Controller) Confirm(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "failed to insert"})
 	}
 	log.Println(res.InsertedID)
+
+	// todo: validate payload with calendar.convert
 
 	_, err = c.db.Collection("unconfirmed").DeleteOne(e.Request().Context(), bson.M{"uuid": uuidRaw})
 	if err != nil {
