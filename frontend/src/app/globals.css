@@ -1,12 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 :root {
-  --red: #EF0000;
-  --gray: #676767;
+    --red: #EF0000;
+    --gray: #676767;
 }
 
-body{
-  font-style: "Montserrat", sans-serif;
+body {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    color: #676767;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+h1 {
+    font-weight: 400;
+    margin: 0.1rem;
+}
 
+a {
+    all: unset;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+    background-color: #EF0000;
+    padding: 1rem 2.5rem 1rem 2.5rem;
+    border-radius: 2rem;
+    font-weight: 400;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0.5rem 0 0.5rem 0;
+    width: 18rem;
+    text-align: center;
+}
+
+a:hover {
+    background-color: #e10000;
+    font-weight: 600;
+}
