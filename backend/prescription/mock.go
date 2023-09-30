@@ -25,10 +25,10 @@ func generateDrugs() *[]Drug {
 	var drugs []Drug
 	for i := 0; i < 5; i++ {
 		drug := Drug{
-			Name:        fmt.Sprintf("Lek #%d", i),
-			DaysPerWeek: 1,
-			DosesPerDay: 1,
-			TotalDoses:  10,
+			Name:         fmt.Sprintf("Lek #%d", i),
+			DaysInterval: 1,
+			DosesPerDay:  1,
+			TotalDoses:   10,
 		}
 
 		drugs = append(drugs, drug)

@@ -5,16 +5,15 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 type ConfirmInputDrug struct {
-	Name         string   `json:"drug_name"`
-	StartDate    string   `json:"start_date"`
-	DosesPerWeek string   `json:"doses_per_week"`
-	DosesNum     string   `json:"doses_num"`
-	Hours        []string `json:"hours"`
+	Drug      prescription.Drug `json:"drug"`
+	StartDate string            `json:"start_date"`
+	Hours     []string          `json:"hours"`
 }
 
 type ConfirmInput struct {
