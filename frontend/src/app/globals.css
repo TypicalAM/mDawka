@@ -17,9 +17,10 @@ body {
 h1 {
     font-weight: 400;
     margin: 0.1rem;
+    text-align: center;
 }
 
-a {
+a,.button {
     all: unset;
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
@@ -34,7 +35,19 @@ a {
     text-align: center;
 }
 
-a:hover {
+a:hover,.button:hover {
     background-color: #e10000;
     font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    h1 {
+        font-size: 1.2rem;
+    }
 }

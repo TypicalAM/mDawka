@@ -22,12 +22,12 @@ func (c *Controller) Confirm(e echo.Context) error {
 
 	var ci prescription.ConfirmInput
 	if err := e.Bind(&ci); err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "invalid body"})
 	}
 
 	count, err := c.db.Collection("unconfirmed").CountDocuments(context.Background(), bson.M{"uuid": uuidRaw})
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "invalid uuid"})
 	}
 
 	if count == 0 {
@@ -41,7 +41,7 @@ func (c *Controller) Confirm(e echo.Context) error {
 		"drugs": ci.Drugs,
 	})
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "failed to insert"})
 	}
 	log.Println(res.InsertedID)
 
@@ -49,7 +49,7 @@ func (c *Controller) Confirm(e echo.Context) error {
 
 	_, err = c.db.Collection("unconfirmed").DeleteOne(e.Request().Context(), bson.M{"uuid": uuidRaw})
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "failed to delete unconfirmed"})
 	}
 
 	return e.JSON(http.StatusCreated, map[string]string{"message": "Created successfully"})
