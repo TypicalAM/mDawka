@@ -13,8 +13,8 @@ services:
       context: frontend
     ports:
       - 3000:3000
-    volumes:
-      - ./frontend:/app
+        #volumes:
+        #- ./frontend:/app
 
   backend:
     build:
@@ -30,7 +30,8 @@ services:
     volumes:
       - ./backend:/app
     depends_on:
-      - db #- frontend
+      - db 
+      - frontend
 
 volumes:
   mongo_data_dev:
