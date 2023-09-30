@@ -9,9 +9,10 @@ func Pesel(peselRaw string) bool {
 
 // PeselCode valides whether given prescription code is correct.
 func PeselCode(codeRaw string) bool {
-	if code, err := strconv.Atoi(codeRaw); err != nil {
+	if len(codeRaw) != 4 {
 		return false
-	} else {
-		return code < 10000 && code > 999
 	}
+
+	_, err := strconv.Atoi(codeRaw)
+	return err == nil
 }
