@@ -12,6 +12,7 @@
 }
 
 .inputWrapper input{
+    z-index: 2;
     font-size: 1.2em;
     text-transform: uppercase;
     width: 100%;

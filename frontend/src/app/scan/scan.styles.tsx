@@ -33,6 +33,9 @@ export const Wrapper = styled.div`
 
 export const ConfirmWrapper = styled.div`
     ${Wrapper} {
+        gap: 15px;
+        z-index: 9;
+        flex-direction: column;
         height: 100vh;
         background-color: white;
     }

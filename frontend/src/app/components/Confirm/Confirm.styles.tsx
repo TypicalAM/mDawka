@@ -7,3 +7,8 @@ export const Text = styled.p`
     font-weight: 400;
     text-align: center;
 `
+
+export const InputWrapper = styled.div`
+    width: 350px;
+    height: 45px;
+`
