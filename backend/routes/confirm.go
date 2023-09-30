@@ -1,10 +1,13 @@
 package routes
 
 import (
+	"context"
+	"log"
 	"net/http"
 
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type ConfirmInputDrug struct {
@@ -28,6 +31,26 @@ func (c *Controller) Confirm(e echo.Context) error {
 		return err
 	}
 
-	// TODO: Confirm with db
-	return e.JSON(http.StatusOK, ConfirmInput{})
+	count, err := c.db.Collection("unconfirmed").CountDocuments(context.Background(), bson.M{"uuid": ci.UUID})
+	if err != nil {
+		return err
+	}
+
+	if count == 0 {
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "uuid not found"})
+	}
+
+	res, err := c.db.Collection("drugs").InsertOne(e.Request().Context(), bson.M{ci.UUID: ci.Drugs})
+	log.Println(res.InsertedID)
+	if err != nil {
+		return err
+	}
+
+	_, err = c.db.Collection("unconfirmed").DeleteOne(e.Request().Context(), bson.M{"uuid": ci.UUID})
+	if err != nil {
+		return err
+	}
+
+	co := ConfirmOutput{WebcalURL: ci.UUID}
+	return e.JSON(http.StatusOK, co)
 }
