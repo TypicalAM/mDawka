@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: mongo:6-jammy
+    volumes:
+      - mongo_data_dev:/data/db
+    environment:
+      - ./.env.db
+
+        # frontend:
+        #build:
+        #context: frontend
+        #ports:
+        #- 3000:3000
+        #volumes:
+        #- ./frontend:/app
+
+  backend:
+    build:
+      context: backend
+    command: air
+    environment:
+      - DB_HOST=db
+      - DB_PORT=27017
+      - MONGODB_URL=mongodb://mongodb:27017/boilerplate
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+        #- frontend
+
+volumes:
+  mongo_data_dev:
