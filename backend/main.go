@@ -30,6 +30,7 @@ func main() {
 	api.POST("/pesel_code", controller.Pesel)
 	api.POST("/barcode", controller.Barcode)
 	api.POST("/confirm/:uuid", controller.Confirm)
+	api.GET("/webcal/:uuid", controller.Webcal)
 
 	e.StaticFS("/assets", echo.MustSubFS(static, "assets"))
 	e.FileFS("/favicon.ico", "assets/favicon.ico", static)
