@@ -1,11 +1,12 @@
 package routes
 
 import (
+	"net/http"
+
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/TypicalAM/hackyeah/validators"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 type PeselInput struct {
@@ -32,7 +33,7 @@ func (c *Controller) Pesel(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid code"})
 	}
 
-	drugs, err := c.prepository.GetDrugsForPesel(input.Pesel, input.Code)
+	drugs, err := c.api.GetDrugsForPesel(input.Pesel, input.Code)
 	if err != nil {
 		return err
 	}

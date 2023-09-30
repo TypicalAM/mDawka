@@ -23,7 +23,7 @@ func (c *Controller) Barcode(e echo.Context) error {
 		return err
 	}
 
-	drugs, err := c.percriptRepo.GetDrugsForBarcode(input.Barcode)
+	drugs, err := c.api.GetDrugsForBarcode(input.Barcode)
 	if err != nil {
 		return err
 	}
