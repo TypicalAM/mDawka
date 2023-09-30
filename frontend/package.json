@@ -9,12 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mui": "^0.0.1",
     "next": "latest",
     "quagga": "^0.12.1",
     "react": "latest",
     "react-barcode-reader": "^0.0.2",
+    "react-calendar": "^4.6.0",
     "react-dom": "latest",
-    "react-qr-reader": "^3.0.0-beta-1",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {

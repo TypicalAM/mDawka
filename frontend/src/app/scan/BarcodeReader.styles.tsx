@@ -6,29 +6,37 @@ const widthAndHeight = '100vh'
 export const Wrapper = styled.div`
     isolation: isolate;
 
-  position: absolute;
+    position: absolute;
 
-  display: flex;
+    display: flex;
 
-  left: 0;
+    left: 0;
 
-  top: 0;
-  overflow-x: hidden;
-  width: 100vw;
-  align-items: center;
-  justify-content: center;
+    top: 0;
+    overflow-x: hidden;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
 
-  overflow-y: hidden;
-  .drawingBuffer {
-    display: none;
-  }
+    overflow-y: hidden;
+    .drawingBuffer {
+        display: none;
+    }
 
-  br {
-    display: none;
-  }
-  video {
-    height: 100vh;
-  }
+    br {
+        display: none;
+    }
+    video {
+        height: 100vh;
+    }
+`
+
+export const CalendarWrapper = styled.div`
+    ${Wrapper} {
+        height: 100vh;
+        background-color: white;
+        z-index: 9;
+    }
 `
 
 export const Overlay = styled.div`
@@ -40,17 +48,17 @@ export const Overlay = styled.div`
     z-index: 2;
     border-radius: 15px;
 
-    -webkit-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
+    -webkit-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight};
+    ${overlayColor};
     -moz-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
     box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
-`;
+`
 
 export const Loader = styled.div`
     z-index: 9;
 
-    ${Wrapper}{
+    ${Wrapper} {
+        height: 100vh;
         background-color: white;
     }
-
-`;
-
+`

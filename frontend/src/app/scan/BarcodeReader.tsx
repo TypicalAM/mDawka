@@ -5,10 +5,10 @@ import Quagga from 'quagga'
 import { BarcodeFormat, type CodeResult } from '../../../types/BarcodeTypes'
 
 interface Props {
-  isLoading: Function
+    isLoading: Function
 }
 
-export default function BarcodeReader ({ isLoading }: Props) {
+export default function BarcodeReader({ isLoading }: Props) {
     const myRef = useRef(null)
     const [reader, setReader] = useState()
 
@@ -16,25 +16,28 @@ export default function BarcodeReader ({ isLoading }: Props) {
         if (!myRef) {
             return
         }
-        const readerConf = Quagga.init({
-            drawBoundingBox: true,
-            locate: true,
-            inputStream: {
-                name: 'Live',
-                type: 'LiveStream',
-                target: myRef.current
+        const readerConf = Quagga.init(
+            {
+                drawBoundingBox: true,
+                locate: true,
+                inputStream: {
+                    name: 'Live',
+                    type: 'LiveStream',
+                    target: myRef.current,
+                },
+                decoder: {
+                    readers: [BarcodeFormat.EAN_READER],
+                },
             },
-            decoder: {
-                readers: [BarcodeFormat.EAN_READER]
-            },
-        }, function (err: any) {
-            if (err) {
-                console.log(err)
-                return
+            function (err: any) {
+                if (err) {
+                    console.log(err)
+                    return
+                }
+                console.log('Initialization finished. Ready to start')
+                Quagga.start()
             }
-            console.log('Initialization finished. Ready to start')
-      Quagga.start()
-        })
+        )
         Quagga.onDetected((processed: any) => {
             const codeResult: CodeResult = processed.codeResult
             console.log(codeResult)
@@ -42,11 +45,8 @@ export default function BarcodeReader ({ isLoading }: Props) {
                 isLoading(true)
             }
         })
-
         setReader(readerConf)
     }, [])
 
-    return (
-        <div className='scanner' ref={myRef}></div>
-    )
+    return <div className="scanner" ref={myRef}></div>
 }
