@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 
+	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -18,12 +19,13 @@ type BarcodeOutput struct {
 }
 
 func (c *Controller) Barcode(e echo.Context) error {
-	var bi BarcodeInput
-	if err := e.Bind(&bi); err != nil {
+	var input BarcodeInput
+	if err := e.Bind(&input); err != nil {
 		return err
 	}
 
-	drugs, err := c.prepository.GetDrugsForBarcode(bi.Barcode)
+	api := factory.GetAPI()
+	drugs, err := api.GetDrugsForBarcode(input.Barcode)
 	if err != nil {
 		return err
 	}

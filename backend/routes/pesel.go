@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/TypicalAM/hackyeah/validators"
 	"github.com/google/uuid"
@@ -34,7 +34,8 @@ func (c *Controller) Pesel(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid code"})
 	}
 
-	drugs, err := c.prepository.GetDrugsForPesel(input.Pesel, fmt.Sprint(input.Code))
+	api := factory.GetAPI()
+	drugs, err := api.GetDrugsForPesel(input.Pesel, input.Code)
 	if err != nil {
 		return err
 	}
