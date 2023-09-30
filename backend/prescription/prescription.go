@@ -1,5 +1,7 @@
 package prescription
 
+import "github.com/TypicalAM/hackyeah/config"
+
 type Drug struct {
 	Name        string `json:"drug_name"`
 	DaysPerWeek int    `json:"days_per_week"`
@@ -10,4 +12,12 @@ type Drug struct {
 type API interface {
 	GetDrugsForBarcode(prescriptionID string) (*[]Drug, error)
 	GetDrugsForPesel(pesel string, code string) (*[]Drug, error)
+}
+
+func New(cfg *config.Config) API {
+	if cfg.Debug {
+		return NewMock()
+	}
+
+	return nil // TODO: Real API
 }

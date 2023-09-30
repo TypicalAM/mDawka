@@ -25,6 +25,7 @@ services:
       - DB_HOST=db
       - DB_PORT=27017
       - PORT=8080
+      - DEBUG=true
     ports:
       - 8080:8080
     volumes:

@@ -13,8 +13,8 @@ import (
 )
 
 type Controller struct {
-	db          *mongo.Database
-	prepository prescription.Prescription
+	db           *mongo.Database
+	percriptRepo prescription.API
 }
 
 func New(cfg *config.Config) (*Controller, error) {
@@ -29,8 +29,8 @@ func New(cfg *config.Config) (*Controller, error) {
 	}
 
 	return &Controller{
-		db:          client.Database("hackyeah"),
-		prepository: nil, // TODO: create mock prescription repository
+		db:           client.Database("hackyeah"),
+		percriptRepo: prescription.New(cfg),
 	}, nil
 }
 

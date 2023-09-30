@@ -9,6 +9,7 @@ type Config struct {
 	Port   string
 	DBHost string
 	DBPort string
+	Debug  bool
 }
 
 // New tries to load a config from the environment variables.
@@ -28,7 +29,13 @@ func New() (*Config, error) {
 		return nil, errors.New("PORT not set")
 	}
 
+	debugRaw := os.Getenv("DEBUG")
+	if debugRaw == "" {
+		return nil, errors.New("DEBUG not set")
+	}
+
 	return &Config{
+		Debug:  debugRaw == "true",
 		Port:   port,
 		DBHost: host,
 		DBPort: dbPort,

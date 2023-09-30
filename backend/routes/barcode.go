@@ -3,7 +3,6 @@ package routes
 import (
 	"net/http"
 
-	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
@@ -24,8 +23,7 @@ func (c *Controller) Barcode(e echo.Context) error {
 		return err
 	}
 
-	api := factory.GetAPI()
-	drugs, err := api.GetDrugsForBarcode(input.Barcode)
+	drugs, err := c.percriptRepo.GetDrugsForBarcode(input.Barcode)
 	if err != nil {
 		return err
 	}

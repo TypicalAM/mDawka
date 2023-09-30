@@ -7,6 +7,10 @@ import (
 
 type MockAPI struct{}
 
+func NewMock() API {
+	return MockAPI{}
+}
+
 func (api MockAPI) GetDrugsForBarcode(prescriptionID string) (*[]Drug, error) {
 	log.Printf("Getting drugs for barcode %s\n", prescriptionID)
 	return generateDrugs(), nil
