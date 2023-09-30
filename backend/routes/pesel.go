@@ -2,7 +2,9 @@ package routes
 
 import (
 	"net/http"
+	"strconv"
 
+	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/TypicalAM/hackyeah/validators"
 	"github.com/labstack/echo/v4"
@@ -18,19 +20,29 @@ type PeselOutput struct {
 }
 
 func (c *Controller) Pesel(e echo.Context) error {
-	var pi PeselInput
-	if err := e.Bind(&pi); err != nil {
+	var input PeselInput
+	if err := e.Bind(&input); err != nil {
 		return err
 	}
 
-	if valid := validators.Pesel(pi.Pesel); !valid {
+	if valid := validators.Pesel(input.Pesel); !valid {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid PESEL number"})
 	}
 
-	if valid := validators.PeselCode(pi.Code); !valid {
+	if valid := validators.PeselCode(input.Code); !valid {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid code"})
 	}
 
-	// TODO: Call external API
-	return e.JSON(http.StatusOK, map[string]string{"test": "test"})
+	api := factory.GetAPI()
+	drugs, err := api.GetDrugsForPesel(input.Pesel, strconv.Itoa(input.Code))
+	if err != nil {
+		return err
+	}
+
+	output := BarcodeOutput{
+		Drugs: *drugs,
+	}
+
+	// input -> output
+	return e.JSON(http.StatusOK, output)
 }

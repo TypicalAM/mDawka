@@ -7,7 +7,7 @@ type Drug struct {
 	TotalDoses  int    `json:"total_doses"`
 }
 
-type Prescription interface {
+type API interface {
 	GetDrugsForBarcode(prescriptionID string) (*[]Drug, error)
 	GetDrugsForPesel(pesel string, code string) (*[]Drug, error)
 }

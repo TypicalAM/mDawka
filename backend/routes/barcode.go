@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/labstack/echo/v4"
 )
@@ -22,22 +22,15 @@ func (c *Controller) Barcode(e echo.Context) error {
 		return err
 	}
 
-	// todo: process input -> output
+	api := factory.GetAPI()
+	drugs, err := api.GetDrugsForBarcode(input.Barcode)
+	if err != nil {
+		return err
+	}
+
 	output := BarcodeOutput{
-		Drugs: []prescription.Drug{},
+		Drugs: *drugs,
 	}
 
-	for i := 0; i < 5; i++ {
-		drug := prescription.Drug{
-			Name:        fmt.Sprintf("Lek #%d", i),
-			DaysPerWeek: 1,
-			DosesPerDay: 1,
-			TotalDoses:  10,
-		}
-
-		output.Drugs = append(output.Drugs, drug)
-	}
-
-	// input -> output
 	return e.JSON(http.StatusOK, output)
 }
