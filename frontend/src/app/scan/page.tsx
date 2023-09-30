@@ -28,7 +28,6 @@ export default function BarcodeReaderComponent(props: any) {
             />
             <Overlay />
             {loading ? <Loader /> : ''}
-            {isCalendarOpen ? <Confirm /> : ''}
         </Wrapper>
     )
 }
