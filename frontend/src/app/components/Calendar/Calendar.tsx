@@ -1,5 +1,5 @@
+import { CalendarWrapper, Wrapper } from '@/app/scan/scan.styles'
 import React from 'react'
-import { Wrapper, CalendarWrapper } from './BarcodeReader.styles'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 

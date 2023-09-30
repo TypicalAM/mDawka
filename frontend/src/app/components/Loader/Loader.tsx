@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import myGif from '../../../public/pill.gif'
+import myGif from '../../../../public/pill.gif'
 import { Wrapper } from '@/app/scan/scan.styles'
 import { Loader } from './Loader.styles'
 
