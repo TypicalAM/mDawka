@@ -40,7 +40,7 @@ func (c *Controller) Pesel(e echo.Context) error {
 		return err
 	}
 
-	return e.JSON(http.StatusOK, BarcodeOutput{
+	return e.JSON(http.StatusOK, PeselOutput{
 		Drugs: *drugs,
 		UUID:  uuid.New().String(),
 	})
