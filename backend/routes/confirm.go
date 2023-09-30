@@ -1,15 +1,21 @@
 package routes
 
-import "github.com/labstack/echo/v4"
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+)
+
+type ConfirmInputDrug struct {
+	Name         string `json:"drug_name"`
+	StartDate    string `json:"start_date"`
+	DosesPerWeek string `json:"doses_per_week"`
+	DosesNum     string `json:"doses_num"`
+}
 
 type ConfirmInput struct {
-	UUID  string `json:"uuid"`
-	Drugs []struct {
-		Name          string `json:"drug_name"`
-		StartDate     string `json:"start_date"`
-		WeekFrequency string `json:"week_frequency"`
-		DosesNum      string `json:"doses_num"`
-	} `json:"drugs"`
+	UUID  string             `json:"uuid"`
+	Drugs []ConfirmInputDrug `json:"drugs"`
 }
 
 type ConfirmOutput struct {
@@ -17,5 +23,11 @@ type ConfirmOutput struct {
 }
 
 func (c *Controller) Confirm(e echo.Context) error {
-	return nil
+	var ci ConfirmInput
+	if err := e.Bind(&ci); err != nil {
+		return err
+	}
+
+	// TODO: Confirm with db
+	return e.JSON(http.StatusOK, ConfirmInput{})
 }
