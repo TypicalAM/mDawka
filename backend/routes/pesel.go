@@ -12,7 +12,7 @@ import (
 
 type PeselInput struct {
 	Pesel string `json:"pesel"`
-	Code  int    `json:"code"`
+	Code  string `json:"code"`
 }
 
 type PeselOutput struct {
@@ -21,20 +21,20 @@ type PeselOutput struct {
 }
 
 func (c *Controller) Pesel(e echo.Context) error {
-	var pi PeselInput
-	if err := e.Bind(&pi); err != nil {
+	var input PeselInput
+	if err := e.Bind(&input); err != nil {
 		return err
 	}
 
-	if valid := validators.Pesel(pi.Pesel); !valid {
+	if valid := validators.Pesel(input.Pesel); !valid {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid PESEL number"})
 	}
 
-	if valid := validators.PeselCode(pi.Code); !valid {
+	if valid := validators.PeselCode(input.Code); !valid {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid code"})
 	}
 
-	drugs, err := c.prepository.GetDrugsForPesel(pi.Pesel, fmt.Sprint(pi.Code)) //TODO: Code should be int?
+	drugs, err := c.prepository.GetDrugsForPesel(input.Pesel, fmt.Sprint(input.Code))
 	if err != nil {
 		return err
 	}
