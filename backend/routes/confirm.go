@@ -16,7 +16,11 @@ type ConfirmOutput struct {
 
 func (c *Controller) Confirm(e echo.Context) error {
 	uuidRaw := e.Param("uuid")
-	ci := prescription.ConfirmInput{Drugs: make([]prescription.ConfirmInputDrug, 0)}
+	if uuidRaw == "" {
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "uuid not provided"})
+	}
+
+	var ci prescription.ConfirmInput
 	if err := e.Bind(&ci); err != nil {
 		return err
 	}

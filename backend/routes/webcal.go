@@ -3,7 +3,6 @@ package routes
 import (
 	"bytes"
 	"context"
-	"log"
 	"net/http"
 
 	"github.com/TypicalAM/hackyeah/calendar"
