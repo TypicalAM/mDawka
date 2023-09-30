@@ -36,9 +36,18 @@ export default function Home(props: any): React.ReactElement {
             <button className="button" onClick={buttonHandler} disabled={buttonDisableCheck()}>STWÓRZ TERMINARZ</button>
         </>
     )
+
+    function buttonHandler() {
+        fetch("http://localhost:8080/api/pesel_code", {
+            method: "POST",
+            body: JSON.stringify({
+                pesel: pesel,
+                code: pin
+            })
+        }).then((response) => {
+            console.log(response)
+        })
+    }
 }
 
 
-function buttonHandler() {
-
-}
