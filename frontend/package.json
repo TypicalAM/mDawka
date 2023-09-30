@@ -9,11 +9,14 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "mui": "^0.0.1",
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@mui/material": "^5.14.11",
         "next": "latest",
         "quagga": "^0.12.1",
         "react": "latest",
         "react-barcode-reader": "^0.0.2",
+        "react-calendar": "^4.6.0",
         "react-dom": "latest",
         "styled-components": "^6.0.8"
     },
