@@ -12,5 +12,6 @@ func main() {
 	e.File("/2137", "assets/rzulta.jpg")
 	e.Logger.Fatal(e.Start(":8080"))
 
-	panic("na dobry początek 2345")
+	go func() { // yourself
+	}()
 }
