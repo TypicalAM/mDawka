@@ -29,7 +29,6 @@ export default function BarcodeReader() {
               console.log("Initialization finished. Ready to start");
               Quagga.start();
           });
-          // Quagga.onProcessed((data:any)=>console.log(data));
           Quagga.onDetected((processed: any)=>{
                 const codeResult: CodeResult = processed.codeResult;
                 //TODO Api call with codeResult
@@ -39,6 +38,6 @@ export default function BarcodeReader() {
     },[])
 
   return (
-    <div ref={myRef}></div>
+    <div className='scanner' ref={myRef}></div>
   )
 }
