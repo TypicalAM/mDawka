@@ -1,4 +1,3 @@
-"use client"
 import React, { useEffect, useRef, useState } from 'react'
 import Quagga from 'quagga';
 import { BarcodeFormat, CodeResult } from '../../../types/BarcodeTypes';
