@@ -31,11 +31,25 @@ export const Wrapper = styled.div`
     }
 `
 
-export const CalendarWrapper = styled.div`
+export const ConfirmWrapper = styled.div`
     ${Wrapper} {
         height: 100vh;
         background-color: white;
-        z-index: 9;
+    }
+
+    .react-calendar {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.352);
+        padding: 10px;
+
+        button {
+            border-radius: 1rem;
+        }
+
+        .react-calendar__tile--active {
+            background-color: var(--red);
+        }
     }
 `
 
