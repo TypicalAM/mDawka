@@ -16,5 +16,6 @@ func main() {
 
 	e.GET("/", c.Hello)
 	e.StaticFS("/assets", echo.MustSubFS(static, "assets"))
+	e.FileFS("/favicon.ico", "assets/favicon.ico", static)
 	e.Logger.Fatal(e.Start(":8080"))
 }
