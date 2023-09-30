@@ -7,11 +7,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/TypicalAM/hackyeah/routes"
+	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/jagtym/go-simple-ics-serializer/pkg/serializer"
 )
 
-func Convert(input routes.ConfirmInput) (*serializer.Calendar, error) {
+func Convert(input prescription.ConfirmInput) (*serializer.Calendar, error) {
 	var events []serializer.Event
 
 	for _, drug := range input.Drugs {
@@ -54,7 +54,7 @@ func Convert(input routes.ConfirmInput) (*serializer.Calendar, error) {
 				doseDate := time.Date(
 					doseDay.Year(), doseDay.Month(), doseDay.Day(),
 					doseTime.Hour(), doseTime.Minute(), 0, 0, doseDay.Location(),
-				)
+				).Add(-2 * time.Hour) // TODO: This is a hack, adjusted for our timezone
 
 				// Create a calendar Event
 				events = append(events, serializer.Event{
