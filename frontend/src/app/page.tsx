@@ -1,13 +1,11 @@
-"use client"
-import Image from 'next/image'
-import { useState } from 'react';
-import BarcodeReader from './scan/BarcodeReader';
-import Link from 'next/link';
+'use client'
+import Link from 'next/link'
+import React from 'react'
 
-export default function Home(props: any) {
-    return (
+export default function Home (props: any): React.ReactElement {
+  return (
       <>
         <h1><Link href='/scan'>Scan</Link></h1>
       </>
-    );
+  )
 }
