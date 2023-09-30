@@ -20,7 +20,7 @@ h1 {
     text-align: center;
 }
 
-a,button {
+a,.button {
     all: unset;
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
@@ -35,7 +35,7 @@ a,button {
     text-align: center;
 }
 
-a:hover,button:hover {
+a:hover,.button:hover {
     background-color: #e10000;
     font-weight: 600;
 }
