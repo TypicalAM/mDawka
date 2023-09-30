@@ -10,28 +10,18 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-type ConfirmInputDrug struct {
-	Drug      prescription.Drug `json:"drug"`
-	StartDate string            `json:"start_date"`
-	Hours     []string          `json:"hours"`
-}
-
-type ConfirmInput struct {
-	UUID  string             `json:"uuid"`
-	Drugs []ConfirmInputDrug `json:"drugs"`
-}
-
 type ConfirmOutput struct {
 	WebcalURL string `json:"webcal_url"`
 }
 
 func (c *Controller) Confirm(e echo.Context) error {
-	var ci ConfirmInput
+	uuidRaw := e.Param("uuid")
+	ci := prescription.ConfirmInput{Drugs: make([]prescription.ConfirmInputDrug, 0)}
 	if err := e.Bind(&ci); err != nil {
 		return err
 	}
 
-	count, err := c.db.Collection("unconfirmed").CountDocuments(context.Background(), bson.M{"uuid": ci.UUID})
+	count, err := c.db.Collection("unconfirmed").CountDocuments(context.Background(), bson.M{"uuid": uuidRaw})
 	if err != nil {
 		return err
 	}
@@ -40,17 +30,21 @@ func (c *Controller) Confirm(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "uuid not found"})
 	}
 
-	res, err := c.db.Collection("drugs").InsertOne(e.Request().Context(), bson.M{ci.UUID: ci.Drugs})
+	log.Printf("%+v\n", ci.Drugs)
+	res, err := c.db.Collection("drugs").InsertOne(e.Request().Context(), bson.M{
+		"_id":   uuidRaw,
+		"uuid":  uuidRaw,
+		"drugs": ci.Drugs,
+	})
+	if err != nil {
+		return err
+	}
 	log.Println(res.InsertedID)
+
+	_, err = c.db.Collection("unconfirmed").DeleteOne(e.Request().Context(), bson.M{"uuid": uuidRaw})
 	if err != nil {
 		return err
 	}
 
-	_, err = c.db.Collection("unconfirmed").DeleteOne(e.Request().Context(), bson.M{"uuid": ci.UUID})
-	if err != nil {
-		return err
-	}
-
-	co := ConfirmOutput{WebcalURL: ci.UUID}
-	return e.JSON(http.StatusOK, co)
+	return e.JSON(http.StatusCreated, map[string]string{"message": "Created successfully"})
 }
