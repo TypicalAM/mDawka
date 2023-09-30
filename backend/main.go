@@ -10,6 +10,7 @@ func main() {
 	e := echo.New()
 	e.GET("/", c.Hello)
 	e.Logger.Fatal(e.Start(":8080"))
-
-	panic("na dobry początek")
+	
+	go func() { // yourself
+	}()
 }
