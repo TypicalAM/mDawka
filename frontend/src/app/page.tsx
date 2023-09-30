@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import React from 'react'
 import AnimatedLogo from '@/app/components/AnimatedLogo/AnimatedLogo'
-import Input from './components/Input/Input'
+import "./home.css"
 
 export default function Home(props: any): React.ReactElement {
     return (
@@ -10,7 +10,6 @@ export default function Home(props: any): React.ReactElement {
             <AnimatedLogo />
             <h1>Stwórz swój własny terminarz leków.</h1>
             <h1 className="margin-bottom">
-                {' '}
                 Wybierz opcje wprowadzenia e-skierowania.
             </h1>
             <Link href="/scan">SKANUJ E-RECEPTĘ</Link>
