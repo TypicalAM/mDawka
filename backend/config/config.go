@@ -6,6 +6,7 @@ import (
 )
 
 type Config struct {
+	Port   string
 	DBHost string
 	DBPort string
 }
@@ -17,13 +18,19 @@ func New() (*Config, error) {
 		return nil, errors.New("DB_HOST not set")
 	}
 
-	port := os.Getenv("DB_PORT")
-	if port == "" {
+	dbPort := os.Getenv("DB_PORT")
+	if dbPort == "" {
 		return nil, errors.New("DB_PORT not set")
 	}
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		return nil, errors.New("PORT not set")
+	}
+
 	return &Config{
+		Port:   port,
 		DBHost: host,
-		DBPort: port,
+		DBPort: dbPort,
 	}, nil
 }

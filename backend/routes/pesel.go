@@ -2,20 +2,21 @@ package routes
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/TypicalAM/hackyeah/validators"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
 type PeselInput struct {
 	Pesel string `json:"pesel"`
-	Code  int    `json:"code"`
+	Code  string `json:"code"`
 }
 
 type PeselOutput struct {
+	UUID  string              `json:"uuid"`
 	Drugs []prescription.Drug `json:"drugs"`
 }
 
@@ -34,15 +35,13 @@ func (c *Controller) Pesel(e echo.Context) error {
 	}
 
 	api := factory.GetAPI()
-	drugs, err := api.GetDrugsForPesel(input.Pesel, strconv.Itoa(input.Code))
+	drugs, err := api.GetDrugsForPesel(input.Pesel, input.Code)
 	if err != nil {
 		return err
 	}
 
-	output := BarcodeOutput{
+	return e.JSON(http.StatusOK, BarcodeOutput{
 		Drugs: *drugs,
-	}
-
-	// input -> output
-	return e.JSON(http.StatusOK, output)
+		UUID:  uuid.New().String(),
+	})
 }

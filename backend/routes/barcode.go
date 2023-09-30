@@ -5,6 +5,7 @@ import (
 
 	"github.com/TypicalAM/hackyeah/factory"
 	"github.com/TypicalAM/hackyeah/prescription"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -13,6 +14,7 @@ type BarcodeInput struct {
 }
 
 type BarcodeOutput struct {
+	UUID  string              `json:"uuid"`
 	Drugs []prescription.Drug `json:"drugs"`
 }
 
@@ -28,9 +30,8 @@ func (c *Controller) Barcode(e echo.Context) error {
 		return err
 	}
 
-	output := BarcodeOutput{
+	return e.JSON(http.StatusOK, BarcodeOutput{
 		Drugs: *drugs,
-	}
-
-	return e.JSON(http.StatusOK, output)
+		UUID:  uuid.New().String(),
+	})
 }
