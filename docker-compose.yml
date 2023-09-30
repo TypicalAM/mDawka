@@ -3,10 +3,11 @@ version: '3.8'
 services:
   db:
     image: mongo:6-jammy
+    ports:
+      - 27017:27017
     volumes:
       - mongo_data_dev:/data/db
-    environment:
-      - ./.env.db
+      
 
         # frontend:
         #build:
