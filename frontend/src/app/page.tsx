@@ -1,11 +1,13 @@
 'use client'
 import Link from 'next/link'
 import React from 'react'
+import AnimatedLogo from '@/app/shared/AnimatedLogo'
 
 export default function Home (props: any): React.ReactElement {
   return (
-      <>
-        <h1><Link href='/scan'>Scan</Link></h1>
-      </>
+        <>
+            <AnimatedLogo />
+            <h1><Link href='/scan'>Scan</Link></h1>
+        </>
   )
 }

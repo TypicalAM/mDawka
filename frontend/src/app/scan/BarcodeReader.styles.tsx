@@ -40,9 +40,9 @@ export const Overlay = styled.div`
     z-index: 2;
     border-radius: 15px;
 
-    -webkit-box-shadow: 0px 0px ${widthAndHight} ${widthAndHight} ${overlayColor};
-    -moz-box-shadow: 0px 0px ${widthAndHight} ${widthAndHight} ${overlayColor};
-    box-shadow: 0px 0px ${widthAndHight} ${widthAndHight} ${overlayColor};
+    -webkit-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
+    -moz-box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
+    box-shadow: 0px 0px ${widthAndHeight} ${widthAndHeight} ${overlayColor};
 `;
 
 export const Loader = styled.div`
