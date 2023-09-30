@@ -20,12 +20,12 @@ func (c *Controller) Webcal(e echo.Context) error {
 	var ci prescription.ConfirmInput
 	err := c.db.Collection("drugs").FindOne(context.Background(), bson.M{"_id": uuidRaw}).Decode(&ci)
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "uuid not found in db"})
 	}
 
 	result, err := calendar.Convert(ci)
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "error while converting"})
 	}
 
 	var buf bytes.Buffer

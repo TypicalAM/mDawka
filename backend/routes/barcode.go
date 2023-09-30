@@ -22,19 +22,19 @@ type BarcodeOutput struct {
 func (c *Controller) Barcode(e echo.Context) error {
 	var input BarcodeInput
 	if err := e.Bind(&input); err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "invalid body"})
 	}
 
 	drugs, err := c.api.GetDrugsForBarcode(input.Barcode)
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "api error"})
 	}
 
 	// Insert UUID to unconfirmed collection, we will check it later
 	newUUID := uuid.New().String()
 	_, err = c.db.Collection("unconfirmed").InsertOne(e.Request().Context(), bson.M{"uuid": newUUID})
 	if err != nil {
-		return err
+		return e.JSON(http.StatusBadRequest, map[string]string{"message": "failed to insert"})
 	}
 	log.Println("Inserted an unconrifmed UUID at", newUUID)
 
