@@ -6,9 +6,9 @@ type ConfirmInput struct {
 	UUID  string `json:"uuid"`
 	Drugs []struct {
 		Name          string `json:"drug_name"`
-		StartDare     string `json:"start_date"`
+		StartDate     string `json:"start_date"`
 		WeekFrequency string `json:"week_frequency"`
-		NumOfDoses    string `json:"doses_num"`
+		DosesNum      string `json:"doses_num"`
 	} `json:"drugs"`
 }
 

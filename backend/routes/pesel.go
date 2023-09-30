@@ -12,7 +12,7 @@ type PeselOutput struct {
 		Name          string `json:"drug_name"`
 		WeekFrequency string `json:"week_frequency"`
 		DayFrequency  string `json:"day_frequency"`
-		NumOfDoses    string `json:"doses_num"`
+		DosesNum      string `json:"doses_num"`
 	} `json:"drugs"`
 }
 
