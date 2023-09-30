@@ -16,10 +16,10 @@ func TestConvert(t *testing.T) {
 			Drugs: []routes.ConfirmInputDrug{
 				{
 					Drug: prescription.Drug{
-						Name:        "Nazwa",
-						DaysPerWeek: 1,
-						DosesPerDay: 1,
-						TotalDoses:  10,
+						Name:         "Nazwa",
+						DaysInterval: 1,
+						DosesPerDay:  1,
+						TotalDoses:   10,
 					},
 
 					StartDate: "2023-09-30",
@@ -33,7 +33,7 @@ func TestConvert(t *testing.T) {
 		// We test using our eyes
 		t.Logf("%#v", input)
 
-		output := calendar.Convert(input)
+		output, _ := calendar.Convert(input)
 
 		t.Logf("%#v", output)
 	})

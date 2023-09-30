@@ -3,10 +3,10 @@ package prescription
 import "github.com/TypicalAM/hackyeah/config"
 
 type Drug struct {
-	Name        string `json:"drug_name"`
-	DaysPerWeek int    `json:"days_per_week"`
-	DosesPerDay int    `json:"doses_per_day"`
-	TotalDoses  int    `json:"total_doses"`
+	Name         string `json:"drug_name"`
+	DaysInterval int    `json:"days_interval"`
+	DosesPerDay  int    `json:"doses_per_day"`
+	TotalDoses   int    `json:"total_doses"`
 }
 
 type API interface {
