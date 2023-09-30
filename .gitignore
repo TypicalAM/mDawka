@@ -1,3 +1,4 @@
 backend/.env
 backend/tmp
 frontend/.env
+.idea
