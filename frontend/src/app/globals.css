@@ -19,7 +19,7 @@ h1 {
     margin: 0.1rem;
 }
 
-a {
+a,button {
     all: unset;
     cursor: pointer;
     font-family: "Montserrat", sans-serif;
@@ -34,7 +34,7 @@ a {
     text-align: center;
 }
 
-a:hover {
+a:hover,button:hover {
     background-color: #e10000;
     font-weight: 600;
 }

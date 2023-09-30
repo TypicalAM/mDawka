@@ -11,7 +11,7 @@ export default function Home(props: any): React.ReactElement {
             <h1>Stwórz swój własny terminarz leków.</h1>
             <h1 className="margin-bottom"> Wybierz opcje wprowadzenia e-skierowania.</h1>
             <Link href="/scan">SKANUJ E-RECEPTĘ</Link>
-            <Link href="/scan">PRZEZ PESEL</Link>
+            <Link href="/pesel">PRZEZ PESEL</Link>
         </>
     )
 }
