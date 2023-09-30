@@ -7,10 +7,11 @@ import (
 )
 
 type ConfirmInputDrug struct {
-	Name         string `json:"drug_name"`
-	StartDate    string `json:"start_date"`
-	DosesPerWeek string `json:"doses_per_week"`
-	DosesNum     string `json:"doses_num"`
+	Name         string   `json:"drug_name"`
+	StartDate    string   `json:"start_date"`
+	DosesPerWeek string   `json:"doses_per_week"`
+	DosesNum     string   `json:"doses_num"`
+	Hours        []string `json:"hours"`
 }
 
 type ConfirmInput struct {
