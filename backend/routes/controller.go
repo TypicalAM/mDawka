@@ -7,12 +7,14 @@ import (
 	"time"
 
 	"github.com/TypicalAM/hackyeah/config"
+	"github.com/TypicalAM/hackyeah/prescription"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Controller struct {
-	db *mongo.Database
+	db          *mongo.Database
+	prepository prescription.Prescription
 }
 
 func New(cfg *config.Config) (*Controller, error) {
@@ -27,7 +29,8 @@ func New(cfg *config.Config) (*Controller, error) {
 	}
 
 	return &Controller{
-		db: client.Database("hackyeah"),
+		db:          client.Database("hackyeah"),
+		prepository: nil, // TODO: create mock prescription repository
 	}, nil
 }
 

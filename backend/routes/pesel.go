@@ -1,10 +1,12 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/TypicalAM/hackyeah/prescription"
 	"github.com/TypicalAM/hackyeah/validators"
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 )
 
@@ -14,6 +16,7 @@ type PeselInput struct {
 }
 
 type PeselOutput struct {
+	UUID  string              `json:"uuid"`
 	Drugs []prescription.Drug `json:"drugs"`
 }
 
@@ -31,6 +34,13 @@ func (c *Controller) Pesel(e echo.Context) error {
 		return e.JSON(http.StatusBadRequest, map[string]string{"message": "Invalid code"})
 	}
 
-	// TODO: Call external API
-	return e.JSON(http.StatusOK, map[string]string{"test": "test"})
+	drugs, err := c.prepository.GetDrugsForPesel(pi.Pesel, fmt.Sprint(pi.Code)) //TODO: Code should be int?
+	if err != nil {
+		return err
+	}
+
+	return e.JSON(http.StatusOK, PeselOutput{
+		Drugs: *drugs,
+		UUID:  uuid.New().String(),
+	})
 }
