@@ -3,7 +3,7 @@ import styles from './Input.module.css'
 
 interface Props {
     placeholder?: string
-    onChange: Function
+    onChange?: Function
     value?: string
     disabled?: boolean
     type?: string
@@ -20,7 +20,9 @@ export default function Input({
         <div className={styles.inputWrapper}>
             <input
                 value={value}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) =>
+                    onChange != undefined ? onChange(e.target.value) : ''
+                }
                 placeholder={placeholder}
                 disabled={disabled}
                 type={type || 'text'}

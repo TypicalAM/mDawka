@@ -33,11 +33,16 @@ export const Wrapper = styled.div`
 
 export const ConfirmWrapper = styled.div`
     ${Wrapper} {
+        overflow: auto;
         gap: 15px;
         z-index: 9;
         flex-direction: column;
-        height: 100vh;
+        height: auto;
         background-color: white;
+    }
+
+    .button {
+        height: 30px;
     }
 
     .react-calendar {
@@ -48,6 +53,7 @@ export const ConfirmWrapper = styled.div`
 
         button {
             border-radius: 1rem;
+            font-size: 1.3em;
         }
 
         .react-calendar__tile--active {
