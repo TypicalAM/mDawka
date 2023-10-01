@@ -52,7 +52,7 @@ export const Arrow = styled.button`
 `
 
 export const ArrowLeft = styled(Arrow)`
-    transform: rotate(180deg);
+    transform: rotateY(180deg);
 `
 
 export const ArrowWrapper = styled.div`
@@ -63,7 +63,7 @@ export const ArrowWrapper = styled.div`
   gap: 10px;
   animation: fadeIn 1.5s ease-in-out;
   position: absolute;
-  top: 2rem;
+  top: 3rem;
   @keyframes fadeIn {
     0% {
       opacity: 0;

@@ -24,7 +24,7 @@ export default function CalendarComponent() {
     const [date, setDate] = useState<Date | Date[]>(new Date())
     const [index, setIndex] = React.useState(0)
 
-    const arrowSize = 40
+    const arrowSize = 30
 
     useEffect(() => {
         const obj = localStorage.getItem('data') || '{}'
@@ -39,13 +39,13 @@ export default function CalendarComponent() {
 
     useEffect(() => {
         if(data === undefined || data === null) return
-        const houers: string[] = (data.drugs[index].houers as [])
-        if(houers.length < data.drugs[index].doses_per_day){
+        const hours: string[] = (data.drugs[index].houers as []) || []
+        if(hours.length < data.drugs[index].doses_per_day){
             for (let i = 0; i < data.drugs[index].doses_per_day; i++) {
-                houers.push("")
+                hours.push("")
             }
         }
-        setHoursState(houers    )
+        setHoursState(hours    )
     }, [index])
 
     function updateData() {

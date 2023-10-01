@@ -7,7 +7,7 @@ const optionsWithHeaders = {
 }
 
 export const authWithPESEL = async (pesel: string, code: string) => {
-    return fetch(url + '/pesel', {
+    return fetch(url + '/pesel_code', {
         ...optionsWithHeaders,
         body: JSON.stringify({ pesel: pesel, code: code }),
         method: 'POST',
