@@ -31,5 +31,9 @@ func (c *Controller) Webcal(e echo.Context) error {
 	var buf bytes.Buffer
 	result.Serialize(&buf)
 	data := buf.String()
+
+	e.Response().Header().Set("Content-Type", "text/calendar")
+	e.Response().Header().Set("Content-Disposition", "attachment; filename=kalendarz_dawkowania.ics")
+
 	return e.String(http.StatusOK, data)
 }
