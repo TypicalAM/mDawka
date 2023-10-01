@@ -11,21 +11,9 @@ export default function BarcodeReaderComponent(props: any) {
     const [isCalendarOpen, setIsCalendarOpen] = useState(true)
     const router = useRouter()
 
-    const handleLoading = (value: boolean) => {
-        setLoading(value)
-        setTimeout(() => {
-            setLoading(false)
-            router.push('/')
-        })
-    }
-
     return (
         <Wrapper>
-            <BarcodeReader
-                isLoading={(value: boolean) => {
-                    handleLoading(value)
-                }}
-            />
+            <BarcodeReader isLoading={(value: boolean) => setLoading(value)} />
             <Overlay />
             {loading ? <Loader /> : ''}
         </Wrapper>

@@ -2,7 +2,8 @@
 import Link from 'next/link'
 import React from 'react'
 import AnimatedLogo from '@/app/components/AnimatedLogo/AnimatedLogo'
-import "./home.css"
+import './home.css'
+import SnackBar from './components/SnackBar/SnackBar'
 
 export default function Home(props: any): React.ReactElement {
     return (

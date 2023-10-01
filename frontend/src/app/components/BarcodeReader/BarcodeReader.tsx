@@ -3,12 +3,16 @@ import React, { useEffect, useRef, useState } from 'react'
 // @ts-ignore
 import Quagga from 'quagga'
 import { BarcodeFormat, type CodeResult } from '../../../../types/BarcodeTypes'
+import { useRouter } from 'next/navigation'
+import { authWithBarcode } from '@/app/service/api.service'
+import { saveBody } from '@/app/service/storage.service'
 
 interface Props {
     isLoading: Function
 }
 
 export default function BarcodeReader({ isLoading }: Props) {
+    const router = useRouter()
     const myRef = useRef(null)
     const [reader, setReader] = useState()
 
@@ -38,11 +42,20 @@ export default function BarcodeReader({ isLoading }: Props) {
                 Quagga.start()
             }
         )
-        Quagga.onDetected((processed: any) => {
+        Quagga.onDetected(async (processed: any) => {
             const codeResult: CodeResult = processed.codeResult
             console.log(codeResult)
             if (codeResult) {
                 isLoading(true)
+                try {
+                    const response = await authWithBarcode(codeResult.code)
+                    const result = await response.json()
+                    saveBody(result)
+                    Quagga.stop()
+                    router.replace('/accept')
+                } catch (e) {
+                    throw e
+                }
             }
         })
         setReader(readerConf)

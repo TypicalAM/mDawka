@@ -1,0 +1,23 @@
+.wrapper {
+ position: absolute;
+ display: flex;
+ align-items: center;
+ min-width: 300px;
+ height: 55px;
+ padding: 5px;
+ padding-inline: 10px;
+ background-color: #e10000c7;
+ bottom: -200px;
+ right: 20px;
+ border-radius: 1rem;
+ color: white;
+ font-weight: 600;
+ text-transform: capitalize;
+ gap: 10px;
+ transition: all 0.5s ease-in-out;
+}
+
+
+.active {
+ bottom: 20px;
+}
