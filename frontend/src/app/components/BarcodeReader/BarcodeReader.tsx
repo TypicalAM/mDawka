@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Quagga from 'quagga'
 import { BarcodeFormat, type CodeResult } from '../../../../types/BarcodeTypes'
 import { useRouter } from 'next/navigation'
-import { authWithBarcode } from '@/app/service/api.service'
+import { authWithBarcode, authWithPESEL } from '@/app/service/api.service'
 import { saveBody } from '@/app/service/storage.service'
 
 interface Props {
@@ -44,11 +44,10 @@ export default function BarcodeReader({ isLoading }: Props) {
         )
         Quagga.onDetected(async (processed: any) => {
             const codeResult: CodeResult = processed.codeResult
-            console.log(codeResult)
             if (codeResult) {
                 isLoading(true)
                 try {
-                    const response = await authWithBarcode(codeResult.code)
+                    const response = await authWithPESEL('91032278965', '1234')
                     const result = await response.json()
                     saveBody(result)
                     Quagga.stop()
