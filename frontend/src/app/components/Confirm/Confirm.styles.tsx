@@ -24,17 +24,37 @@ export const InputGroup = styled.div`
 `
 
 export const InputSmall = styled.div`
-    font-size: 0.6em;
+    font-size: 1em;
     display: flex;
     width: 50px;
     height: 40px;
 `
 
 export const InputHour = styled.div`
-    font-size: 0.6em;
+    font-size: 1em;
     display: flex;
     width: 90px;
     height: 40px;
     justify-content: center;
     align-items: center;
 `
+
+export const Arrow = styled.button`
+  all: unset;
+  color: #EF0000;
+  cursor: pointer;
+  font-size: 2em;
+
+  :hover {
+    color: #FF0000;
+    font-weight: bold;
+  }
+`
+
+export const ArrowWrapper = styled.div`
+    display: flex;
+    width: 350px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    `

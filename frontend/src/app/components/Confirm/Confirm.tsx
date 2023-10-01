@@ -1,8 +1,9 @@
-import { ConfirmWrapper, Wrapper } from '@/app/scan/scan.styles'
-import React, { Suspense } from 'react'
-import { Calendar } from 'react-calendar'
+import {ConfirmWrapper, Wrapper} from '@/app/scan/scan.styles'
+import React, {Suspense, useState} from 'react'
+import {Calendar} from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import {
+    Arrow, ArrowWrapper,
     InputGroup,
     InputHour,
     InputSmall,
@@ -11,19 +12,53 @@ import {
 } from './Confirm.styles'
 import Input from '../Input/Input'
 import AnimatedLogo from '../AnimatedLogo/AnimatedLogo'
-import { Loader } from '../Loader/Loader.styles'
+import {Loader} from '../Loader/Loader.styles'
 
 export default function CalendarComponent() {
-    const data = JSON.parse(localStorage.getItem('data') || '{}')
+    const obj = localStorage.getItem('data') || '{}'
+    const [data, setData] = useState(JSON.parse(obj))
     const [index, setIndex] = React.useState(0)
+    const hoursState: string[] = data.drugs[index].houers as [] || ["", "", "", "", ""]
+    let date: any = data.drugs[index].date as Date || new Date()
+
+    function updateData() {
+        const newData = data
+        console.log(date)
+        newData.drugs[index].date = date
+        localStorage.setItem("data", JSON.stringify(newData))
+        newData.drugs[index].houers = hoursState.filter((item: string) => item !== "")
+        setData(newData)
+    }
+
     return (
         <>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<Loader/>}>
                 <ConfirmWrapper>
                     <Wrapper>
                         <AnimatedLogo></AnimatedLogo>
+                        <ArrowWrapper>
+                            <Arrow onClick={() => {
+                                if (index > 0) {
+                                    setIndex(index - 1)
+                                    updateData()
+                                }
+                            }
+                            }>
+                                🡐
+                            </Arrow>
+                            <Arrow onClick={
+                                () => {
+                                    if (index < data.drugs.length - 1) {
+                                        setIndex(index + 1)
+                                        updateData()
+                                    }
+                                }
+                            }>
+                                🡒
+                            </Arrow>
+                        </ArrowWrapper>
                         <InputWrapper>
-                            <Input placeholder="Nazwa Leku" disabled value={data.drugs[0].drug_name} />
+                            <Input placeholder="Nazwa Leku" disabled value={data.drugs[index].drug_name}/>
                         </InputWrapper>
                         <Text
                             style={{
@@ -35,17 +70,17 @@ export default function CalendarComponent() {
                         >
                             Data rozpoczęcia
                         </Text>
-                        <Calendar locale="pl" />
+                        <Calendar locale="pl" value={date}/>
                         <InputGroup>
                             <Text>Co ile dni</Text>
                             <InputSmall>
-                                <Input disabled value={data.drugs[0].days_interval}/>
+                                <Input disabled value={data.drugs[index].days_interval}/>
                             </InputSmall>
                         </InputGroup>
                         <InputGroup>
                             <Text>Ilość dawek</Text>
                             <InputSmall>
-                                <Input disabled value={data.drugs[0].doses_per_day}/>
+                                <Input disabled value={data.drugs[index].doses_per_day}/>
                             </InputSmall>
                         </InputGroup>
                         <Text
@@ -59,9 +94,9 @@ export default function CalendarComponent() {
                             Godziny Dawek
                         </Text>
                         <InputGroup>
-                            {['12:00', '13:00', '15:00'].map((item) => (
+                            {Array(Number(data.drugs[index].doses_per_day)).fill("").map((i,y) => (
                                 <InputHour>
-                                    <Input type="time"></Input>
+                                    <Input type="time" value={hoursState[y]}></Input>
                                 </InputHour>
                             ))}
                         </InputGroup>

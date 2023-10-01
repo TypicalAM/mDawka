@@ -41,7 +41,7 @@ export default function Home(props: any): React.ReactElement {
 
     async function buttonHandler() {
         try {
-            const response: any = await fetch("http://localhost:8080/api/pesel_code", {
+            const response: any = await fetch("https://api.mdawka.piaseczny.dev//api/pesel_code", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
