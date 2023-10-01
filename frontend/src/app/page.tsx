@@ -9,12 +9,18 @@ export default function Home(props: any): React.ReactElement {
     return (
         <>
             <AnimatedLogo />
-            <h1>Stwórz swój własny terminarz leków.</h1>
-            <h1 className="margin-bottom">
-                Wybierz opcje wprowadzenia e-skierowania.
-            </h1>
-            <Link href="/scan">SKANUJ E-RECEPTĘ</Link>
-            <Link href="/pesel">PRZEZ PESEL</Link>
+            <section id="App-Description">
+                <h1>Stwórz swój własny terminarz leków.</h1>
+                <h1 className="margin-bottom">
+                    Wybierz opcje wprowadzenia e-skierowania.
+                </h1>
+            </section>
+            <Link aria-label="Skan e-recepty" href="/scan">
+                SKANUJ E-RECEPTĘ
+            </Link>
+            <Link aria-label="Logowanie przez PESEL" href="/pesel">
+                PRZEZ PESEL
+            </Link>
         </>
     )
 }

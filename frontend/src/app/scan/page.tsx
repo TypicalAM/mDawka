@@ -12,10 +12,14 @@ export default function BarcodeReaderComponent(props: any) {
     const router = useRouter()
 
     return (
-        <Wrapper>
-            <BarcodeReader isLoading={(value: boolean) => setLoading(value)} />
-            <Overlay />
-            {loading ? <Loader /> : ''}
-        </Wrapper>
+        <section id="Skanowanie e-recepty">
+            <Wrapper>
+                <BarcodeReader
+                    isLoading={(value: boolean) => setLoading(value)}
+                />
+                <Overlay />
+                {loading ? <Loader /> : ''}
+            </Wrapper>
+        </section>
     )
 }

@@ -3,5 +3,9 @@ import React from 'react'
 import Confirm from '../components/Confirm/Confirm'
 
 export default function page() {
-    return <Confirm />
+    return (
+        <section id="Potweirdzenie danych recepty">
+            <Confirm />
+        </section>
+    )
 }

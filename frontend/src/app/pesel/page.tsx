@@ -34,7 +34,7 @@ export default function Home(props: any): React.ReactElement {
     }
 
     return (
-        <>
+        <section id="Widok PESEL">
             <AnimatedLogo />
             <h1>Podaj pesel oraz kod recepty</h1>
             <div className="height">
@@ -66,6 +66,6 @@ export default function Home(props: any): React.ReactElement {
                 STWÓRZ TERMINARZ
             </button>
             <SnackBar isVisible={isVisible} message={message} />
-        </>
+        </section>
     )
 }
