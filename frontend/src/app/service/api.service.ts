@@ -1,6 +1,6 @@
 // const url = 'https://api.mdawka.piaseczny.dev/'
-const url = 'https://api.mdawka.piaseczny.dev/'
-const urlWebCal = 'webcal://api.mdawka.piaseczny.dev/'
+const url = 'https://api.mdawka.piaseczny.dev'
+const urlWebCal = 'webcal://api.mdawka.piaseczny.dev'
 const optionsWithHeaders = {
     headers: {
         'Content-Type': 'application/json',
