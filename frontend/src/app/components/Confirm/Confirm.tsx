@@ -4,6 +4,7 @@ import { Calendar } from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import {
     Arrow,
+    ArrowLeft,
     ArrowWrapper,
     InputGroup,
     InputHour,
@@ -15,12 +16,15 @@ import Input from '../Input/Input'
 import AnimatedLogo from '../AnimatedLogo/AnimatedLogo'
 import { Loader } from '../Loader/Loader.styles'
 import { saveBody } from '@/app/service/storage.service'
+import Image from 'next/image'
 
 export default function CalendarComponent() {
     const [data, setData] = useState<any>(null)
     const [hoursState, setHoursState] = useState<string[]>([])
     const [date, setDate] = useState<Date | Date[]>(new Date())
     const [index, setIndex] = React.useState(0)
+
+    const arrowSize = 40
 
     useEffect(() => {
         const obj = localStorage.getItem('data') || '{}'
@@ -54,7 +58,7 @@ export default function CalendarComponent() {
                     <Wrapper>
                         <AnimatedLogo></AnimatedLogo>
                         <ArrowWrapper>
-                            <Arrow
+                            <ArrowLeft
                                 onClick={() => {
                                     if (index > 0) {
                                         setIndex(index - 1)
@@ -62,8 +66,13 @@ export default function CalendarComponent() {
                                     }
                                 }}
                             >
-                                🡐
-                            </Arrow>
+                                <Image
+                                    src="arrow.svg"
+                                    alt="arrow"
+                                    width={arrowSize}
+                                    height={arrowSize}
+                                />
+                            </ArrowLeft>
                             <Arrow
                                 onClick={() => {
                                     if (index < data.drugs.length - 1) {
@@ -71,7 +80,14 @@ export default function CalendarComponent() {
                                         updateData()
                                     }
                                 }}
-                            ></Arrow>
+                            >
+                                <Image
+                                    src="arrow.svg"
+                                    alt="arrow"
+                                    width={arrowSize}
+                                    height={arrowSize}
+                                />
+                            </Arrow>
                         </ArrowWrapper>
                         <InputWrapper>
                             <Input
