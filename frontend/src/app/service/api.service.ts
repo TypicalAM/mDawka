@@ -1,5 +1,6 @@
 // const url = 'https://api.mdawka.piaseczny.dev/'
 const url = 'http://localhost:8080/api'
+const urlWebCal = 'webcal://localhost:8080/api'
 const optionsWithHeaders = {
     headers: {
         'Content-Type': 'application/json',
@@ -38,9 +39,6 @@ export const confirmRequest = async (id: string, drugs: Array<Drug>) => {
     })
 }
 
-export const getLink = async (id: string) => {
-    return fetch(url + `/webcal/${id}`, {
-        ...optionsWithHeaders,
-        method: 'GET',
-    })
+export const getLink = (id: string) => {
+    return (urlWebCal + `/webcal/${id}`)
 }

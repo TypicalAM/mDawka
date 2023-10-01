@@ -2,16 +2,7 @@ import {ConfirmWrapper, Wrapper} from '@/app/scan/scan.styles'
 import React, {Suspense, useEffect, useState} from 'react'
 import {Calendar} from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
-import {
-    Arrow,
-    ArrowLeft,
-    ArrowWrapper,
-    InputGroup,
-    InputHour,
-    InputSmall,
-    InputWrapper,
-    Text,
-} from './Confirm.styles'
+import {Arrow, ArrowLeft, ArrowWrapper, InputGroup, InputHour, InputSmall, InputWrapper, Text,} from './Confirm.styles'
 import Input from '../Input/Input'
 import AnimatedLogo from '../AnimatedLogo/AnimatedLogo'
 import {Loader} from '../Loader/Loader.styles'
@@ -21,7 +12,7 @@ import {confirmRequest, getLink} from "@/app/service/api.service";
 
 export default function CalendarComponent() {
     const [data, setData] = useState<any>(null)
-    const [hoursState, setHoursState] = useState<string[]>([])
+    let hoursState: string[] = []
     const [date, setDate] = useState<Date | Date[]>(new Date())
     const [index, setIndex] = useState(0)
 
@@ -40,13 +31,13 @@ export default function CalendarComponent() {
 
     useEffect(() => {
         if (data === undefined || data === null) return
-        const hours: string[] = (data.drugs[index].houers as []) || []
+        const hours: string[] = (data.drugs[index].hours as []) || []
         if (hours.length < data.drugs[index].doses_per_day) {
             for (let i = 0; i < data.drugs[index].doses_per_day; i++) {
                 hours.push("")
             }
         }
-        setHoursState(hours)
+        hoursState = hours
     }, [index])
 
     function updateData() {
@@ -54,20 +45,33 @@ export default function CalendarComponent() {
         if (data.drugs === undefined) return
         const newData: any = data
         newData.drugs[index].date = date
-        newData.drugs[index].houers = hoursState
+        newData.drugs[index].hours = hoursState
         setData(newData)
     }
 
     async function buttonHandler() {
-        const hours: string[] = (data.drugs[index].houers as [])
-        setHoursState(hours)
-        const newData = data.drugs.map((item: any) => {
-            item.houers = item.houers.filter((hour: string) => hour !== '')
+        const newData = data
+        newData.drugs.forEach((item: any) => {
+            item.hours = ["00:00", "12:00", "13:00", "15:00", "18:00"].slice(0, item.doses_per_day)
+            item.drug = {
+                drug_name: item.drug_name,
+                days_interval: item.days_interval,
+                doses_per_day: item.doses_per_day,
+                total_doses: item.total_doses,
+            }
+            item.drug_name = undefined
+            item.days_interval = undefined
+            item.doses_per_day = undefined
+            item.total_doses = undefined
+            let date = new Date()
+            if(item.start_date !== undefined) {
+                date = new Date(item.start_date)
+            }
+            item.start_date = date.toISOString().split('T')[0]
         })
-        const response = await confirmRequest(data.uuid, newData.drags)
-        if (response.status === 200) {
-            const response = await getLink(data.uuid)
-            console.log(response.json())
+        const response = await confirmRequest(data.uuid, newData.drugs)
+        if (response.status < 300) {
+            window.location.href = getLink(data.uuid)
         }
     }
 
@@ -171,10 +175,7 @@ export default function CalendarComponent() {
                                             type="time"
                                             value={hoursState[y]}
                                             onChange={(e: string) => {
-                                                const newHoursState = hoursState
-                                                newHoursState[y] = e
-                                                setHoursState(newHoursState)
-                                                updateData()
+                                                hoursState[y] = e
                                             }}
                                         ></Input>
                                     </InputHour>
