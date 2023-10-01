@@ -14,15 +14,16 @@ import {
 } from './Confirm.styles'
 import Input from '../Input/Input'
 import AnimatedLogo from '../AnimatedLogo/AnimatedLogo'
-import { Loader } from '../Loader/Loader.styles'
-import { saveBody } from '@/app/service/storage.service'
+import {Loader} from '../Loader/Loader.styles'
+import {saveBody} from '@/app/service/storage.service'
 import Image from 'next/image'
+import {confirmRequest, getLink} from "@/app/service/api.service";
 
 export default function CalendarComponent() {
     const [data, setData] = useState<any>(null)
     const [hoursState, setHoursState] = useState<string[]>([])
     const [date, setDate] = useState<Date | Date[]>(new Date())
-    const [index, setIndex] = React.useState(0)
+    const [index, setIndex] = useState(0)
 
     const arrowSize = 30
 
@@ -38,14 +39,14 @@ export default function CalendarComponent() {
     }, [data])
 
     useEffect(() => {
-        if(data === undefined || data === null) return
+        if (data === undefined || data === null) return
         const hours: string[] = (data.drugs[index].houers as []) || []
-        if(hours.length < data.drugs[index].doses_per_day){
+        if (hours.length < data.drugs[index].doses_per_day) {
             for (let i = 0; i < data.drugs[index].doses_per_day; i++) {
                 hours.push("")
             }
         }
-        setHoursState(hours    )
+        setHoursState(hours)
     }, [index])
 
     function updateData() {
@@ -57,9 +58,22 @@ export default function CalendarComponent() {
         setData(newData)
     }
 
+    async function buttonHandler() {
+        const hours: string[] = (data.drugs[index].houers as [])
+        setHoursState(hours)
+        const newData = data.drugs.map((item: any) => {
+            item.houers = item.houers.filter((hour: string) => hour !== '')
+        })
+        const response = await confirmRequest(data.uuid, newData.drags)
+        if (response.status === 200) {
+            const response = await getLink(data.uuid)
+            console.log(response.json())
+        }
+    }
+
     const content =
         data != null ? (
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={<Loader/>}>
                 <ConfirmWrapper>
                     <Wrapper>
                         <AnimatedLogo></AnimatedLogo>
@@ -152,7 +166,7 @@ export default function CalendarComponent() {
                             {Array(Number(data.drugs[index].doses_per_day))
                                 .fill('')
                                 .map((i, y) => (
-                                    <InputHour>
+                                    <InputHour key={y.toString()}>
                                         <Input
                                             type="time"
                                             value={hoursState[y]}
@@ -160,13 +174,14 @@ export default function CalendarComponent() {
                                                 const newHoursState = hoursState
                                                 newHoursState[y] = e
                                                 setHoursState(newHoursState)
+                                                updateData()
                                             }}
                                         ></Input>
                                     </InputHour>
                                 ))}
                         </InputGroup>
 
-                        <button className="button">Zatwierdź</button>
+                        <button className="button" onClick={buttonHandler}>Zatwierdź</button>
                     </Wrapper>
                 </ConfirmWrapper>
             </Suspense>
@@ -174,5 +189,5 @@ export default function CalendarComponent() {
             ''
         )
 
-    return <>{data != null ? content : <Loader />}</>
+    return <>{data != null ? content : <Loader/>}</>
 }
