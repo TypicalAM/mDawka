@@ -13,8 +13,6 @@ services:
       context: frontend
     ports:
       - 3000:3000
-        #volumes:
-        #- ./frontend:/app
 
   backend:
     build:
