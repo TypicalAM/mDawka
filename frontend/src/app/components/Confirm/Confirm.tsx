@@ -20,7 +20,6 @@ import Image from 'next/image'
 import { confirmRequest, getLink } from '@/app/service/api.service'
 
 export default function CalendarComponent() {
-    const placeholder = ['8:00', '12:00', '13:00', '15:00', '18:00']
     const [data, setData] = useState<any>(null)
     let hoursState: string[] = []
     const [date, setDate] = useState<Date | Date[]>(new Date())
@@ -145,6 +144,7 @@ export default function CalendarComponent() {
                         </Text>
                         <Calendar
                             locale="pl"
+                            minDate={new Date()}
                             value={data.drugs[index].start_date || date}
                             onChange={(value) =>
                                 (data.drugs[index].start_date =
@@ -185,7 +185,6 @@ export default function CalendarComponent() {
                                 .map((i, y) => (
                                     <InputHour key={y.toString()}>
                                         <Input
-                                            placeholder={placeholder[y]}
                                             type="time"
                                             value={hoursState[y]}
                                             onChange={(e: string) => {
