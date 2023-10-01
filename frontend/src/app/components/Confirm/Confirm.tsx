@@ -1,16 +1,26 @@
-import {ConfirmWrapper, Wrapper} from '@/app/scan/scan.styles'
-import React, {Suspense, useEffect, useState} from 'react'
-import {Calendar} from 'react-calendar'
+import { ConfirmWrapper, Wrapper } from '@/app/scan/scan.styles'
+import React, { Suspense, useEffect, useState } from 'react'
+import { Calendar } from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
-import {Arrow, ArrowLeft, ArrowWrapper, InputGroup, InputHour, InputSmall, InputWrapper, Text,} from './Confirm.styles'
+import {
+    Arrow,
+    ArrowLeft,
+    ArrowWrapper,
+    InputGroup,
+    InputHour,
+    InputSmall,
+    InputWrapper,
+    Text,
+} from './Confirm.styles'
 import Input from '../Input/Input'
 import AnimatedLogo from '../AnimatedLogo/AnimatedLogo'
-import {Loader} from '../Loader/Loader.styles'
-import {saveBody} from '@/app/service/storage.service'
+import { Loader } from '../Loader/Loader.styles'
+import { saveBody } from '@/app/service/storage.service'
 import Image from 'next/image'
-import {confirmRequest, getLink} from "@/app/service/api.service";
+import { confirmRequest, getLink } from '@/app/service/api.service'
 
 export default function CalendarComponent() {
+    const placeholder = ['8:00', '12:00', '13:00', '15:00', '18:00']
     const [data, setData] = useState<any>(null)
     let hoursState: string[] = []
     const [date, setDate] = useState<Date | Date[]>(new Date())
@@ -34,7 +44,7 @@ export default function CalendarComponent() {
         const hours: string[] = (data.drugs[index].hours as []) || []
         if (hours.length < data.drugs[index].doses_per_day) {
             for (let i = 0; i < data.drugs[index].doses_per_day; i++) {
-                hours.push("")
+                hours.push('')
             }
         }
         hoursState = hours
@@ -52,7 +62,10 @@ export default function CalendarComponent() {
     async function buttonHandler() {
         const newData = data
         newData.drugs.forEach((item: any) => {
-            item.hours = ["00:00", "12:00", "13:00", "15:00", "18:00"].slice(0, item.doses_per_day)
+            item.hours = ['00:00', '12:00', '13:00', '15:00', '18:00'].slice(
+                0,
+                item.doses_per_day
+            )
             item.drug = {
                 drug_name: item.drug_name,
                 days_interval: item.days_interval,
@@ -64,7 +77,7 @@ export default function CalendarComponent() {
             item.doses_per_day = undefined
             item.total_doses = undefined
             let date = new Date()
-            if(item.start_date !== undefined) {
+            if (item.start_date !== undefined) {
                 date = new Date(item.start_date)
             }
             item.start_date = date.toISOString().split('T')[0]
@@ -77,7 +90,7 @@ export default function CalendarComponent() {
 
     const content =
         data != null ? (
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
                 <ConfirmWrapper>
                     <Wrapper>
                         <AnimatedLogo></AnimatedLogo>
@@ -172,6 +185,7 @@ export default function CalendarComponent() {
                                 .map((i, y) => (
                                     <InputHour key={y.toString()}>
                                         <Input
+                                            placeholder={placeholder[y]}
                                             type="time"
                                             value={hoursState[y]}
                                             onChange={(e: string) => {
@@ -182,7 +196,9 @@ export default function CalendarComponent() {
                                 ))}
                         </InputGroup>
 
-                        <button className="button" onClick={buttonHandler}>Zatwierdź</button>
+                        <button className="button" onClick={buttonHandler}>
+                            Zatwierdź
+                        </button>
                     </Wrapper>
                 </ConfirmWrapper>
             </Suspense>
@@ -190,5 +206,5 @@ export default function CalendarComponent() {
             ''
         )
 
-    return <>{data != null ? content : <Loader/>}</>
+    return <>{data != null ? content : <Loader />}</>
 }
