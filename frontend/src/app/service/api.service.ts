@@ -9,8 +9,8 @@ const optionsWithHeaders = {
 export interface Drug {
     drug_name: string // nazwa leku
     start_date: string // data rozpoczecia brania leku
-    doses_per_week: number // ile razy na tydzien to bierzemy
-    doses_num: number // ile lacznie dawek bierzemy
+    days_interval: number // ile razy na tydzien to bierzemy
+    doses_per_day: number // ile lacznie dawek bierzemy
     hours: string[] // o ktorych godzinach to bierzemy, w formacie "18:07"
 }
 
