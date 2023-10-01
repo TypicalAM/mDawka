@@ -11,6 +11,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+// Webcal(e echo.Context) handles iCal providing functionality.
+// It returns repsonse with "Content-Type" set to text/calendar
 func (c *Controller) Webcal(e echo.Context) error {
 	uuidRaw := e.Param("uuid")
 	if uuidRaw == "" {
