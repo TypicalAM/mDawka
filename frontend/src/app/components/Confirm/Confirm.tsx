@@ -144,7 +144,7 @@ export default function CalendarComponent() {
                             </InputSmall>
                         </InputGroup>
                         <InputGroup>
-                            <Text>Ilość dawek</Text>
+                            <Text>Dzienna liczba dawek?</Text>
                             <InputSmall>
                                 <Input
                                     disabled
