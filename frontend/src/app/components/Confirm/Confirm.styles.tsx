@@ -52,9 +52,23 @@ export const Arrow = styled.button`
 `
 
 export const ArrowWrapper = styled.div`
-    display: flex;
-    width: 350px;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    `
+  display: flex;
+  width: 350px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 1.5s ease-in-out;
+  position: absolute;
+  top: 2rem;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    90% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`

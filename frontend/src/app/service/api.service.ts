@@ -1,4 +1,4 @@
-// const url = 'https://api.mdawka.piaseczny.dev/api'
+// const url = 'https://api.mdawka.piaseczny.dev/'
 const url = 'http://localhost:8080/api'
 const optionsWithHeaders = {
     headers: {

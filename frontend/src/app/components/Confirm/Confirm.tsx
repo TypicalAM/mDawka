@@ -1,6 +1,6 @@
-import { ConfirmWrapper, Wrapper } from '@/app/scan/scan.styles'
-import React, { Suspense, useEffect, useState } from 'react'
-import { Calendar } from 'react-calendar'
+import {ConfirmWrapper, Wrapper} from '@/app/scan/scan.styles'
+import React, {Suspense, useEffect, useState} from 'react'
+import {Calendar} from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import {
     Arrow,
@@ -33,17 +33,23 @@ export default function CalendarComponent() {
         saveBody(data)
     }, [data])
 
+    useEffect(() => {
+        if(data === undefined || data === null) return
+        const houers: string[] = (data.drugs[index].houers as [])
+        if(houers.length < data.drugs[index].doses_per_day){
+            for (let i = 0; i < data.drugs[index].doses_per_day; i++) {
+                houers.push("")
+            }
+        }
+        setHoursState(houers    )
+    }, [index])
+
     function updateData() {
         if (data === undefined) return
         if (data.drugs === undefined) return
         const newData: any = data
         newData.drugs[index].date = date
-        setHoursState(
-            (data.drugs[index].houers as []) ||
-                ['', '', '', '', ''].filter((item: string) => item !== '')
-        )
         newData.drugs[index].houers = hoursState
-
         setData(newData)
     }
 
@@ -57,8 +63,8 @@ export default function CalendarComponent() {
                             <Arrow
                                 onClick={() => {
                                     if (index > 0) {
-                                        setIndex(index - 1)
                                         updateData()
+                                        setIndex(index - 1)
                                     }
                                 }}
                             >
@@ -67,11 +73,11 @@ export default function CalendarComponent() {
                             <Arrow
                                 onClick={() => {
                                     if (index < data.drugs.length - 1) {
-                                        setIndex(index + 1)
                                         updateData()
+                                        setIndex(index + 1)
                                     }
                                 }}
-                            ></Arrow>
+                            >🡒</Arrow>
                         </ArrowWrapper>
                         <InputWrapper>
                             <Input
@@ -134,6 +140,11 @@ export default function CalendarComponent() {
                                         <Input
                                             type="time"
                                             value={hoursState[y]}
+                                            onChange={(e: string) => {
+                                                const newHoursState = hoursState
+                                                newHoursState[y] = e
+                                                setHoursState(newHoursState)
+                                            }}
                                         ></Input>
                                     </InputHour>
                                 ))}
