@@ -40,15 +40,19 @@ export const InputHour = styled.div`
 `
 
 export const Arrow = styled.button`
-  all: unset;
-  color: #EF0000;
-  cursor: pointer;
-  font-size: 2em;
+    all: unset;
+    color: #ef0000;
+    cursor: pointer;
+    font-size: 2em;
 
-  :hover {
-    color: #FF0000;
-    font-weight: bold;
-  }
+    :hover {
+        color: #ff0000;
+        font-weight: bold;
+    }
+`
+
+export const ArrowLeft = styled(Arrow)`
+    transform: rotate(180deg);
 `
 
 export const ArrowWrapper = styled.div`
