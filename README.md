@@ -16,8 +16,8 @@ mDawka (mała Dawka) is a convenient pill manager levaraging `webCal` and an e-r
 ## Product images
 
 <p align="center">
-  <img src="assets/example1.png" width="100" />
-  <img src="assets/example2.png" width="100" /> 
+  <img src="assets/example1.png" width="400" />
+  <img src="assets/example2.png" width="400" /> 
 </p>
 
 ## License
