@@ -19,7 +19,7 @@ COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
 # Fetch dev tools (air, gotestsum)
-RUN go install github.com/cosmtrek/air@latest
+RUN go install github.com/air-verse/air@latest
 RUN go install gotest.tools/gotestsum@latest
 
 # Run the Go binary.
